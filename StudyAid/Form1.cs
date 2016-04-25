@@ -27,11 +27,18 @@ namespace StudyAid
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            string s = termBox.Text + '\t' + definitionBox.Text;
-            terms.Add(cardNumber, s);
-            cardNumber++;
-            this.termBox.Text = "";
-            this.definitionBox.Text = "";
+            if (termBox.Text == null || termBox.Text == "" || definitionBox.Text == null || definitionBox.Text == "")
+            {
+                MessageBox.Show("Invalid entry in one or more box, please enter something in each box before continuing.", "Invalid Entry", MessageBoxButtons.RetryCancel);
+            }
+            else
+            {
+                string s = termBox.Text + '\t' + definitionBox.Text;
+                terms.Add(cardNumber, s);
+                cardNumber++;
+                this.termBox.Text = "";
+                this.definitionBox.Text = "";
+            }
         }
 
         private void newItem_Click(object sender, EventArgs e)
@@ -59,6 +66,14 @@ namespace StudyAid
             }
 
             
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter)
+            {
+                addButton_Click(sender, e);
+            }
         }
     }
 }
