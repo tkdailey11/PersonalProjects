@@ -75,5 +75,12 @@ namespace StudyAid
                 addButton_Click(sender, e);
             }
         }
+
+        private void matchingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MatchingWindow.Form1 window = new MatchingWindow.Form1();
+            window.initializeBoxes(terms);
+            window.Visible = true;
+        }
     }
 }

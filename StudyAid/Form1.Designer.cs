@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.addButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.definitionBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.termBox = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.termBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.definitionBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.addButton = new System.Windows.Forms.Button();
             this.flashcardItem = new System.Windows.Forms.ToolStripMenuItem();
             this.matchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -72,6 +72,49 @@
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
             // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(72, 134);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(200, 37);
+            this.addButton.TabIndex = 4;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 66);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Definition:";
+            // 
+            // definitionBox
+            // 
+            this.definitionBox.Location = new System.Drawing.Point(72, 31);
+            this.definitionBox.Multiline = true;
+            this.definitionBox.Name = "definitionBox";
+            this.definitionBox.Size = new System.Drawing.Size(200, 76);
+            this.definitionBox.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Term:";
+            // 
+            // termBox
+            // 
+            this.termBox.Location = new System.Drawing.Point(72, 4);
+            this.termBox.Name = "termBox";
+            this.termBox.Size = new System.Drawing.Size(200, 20);
+            this.termBox.TabIndex = 0;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -97,20 +140,20 @@
             // openItem
             // 
             this.openItem.Name = "openItem";
-            this.openItem.Size = new System.Drawing.Size(152, 22);
+            this.openItem.Size = new System.Drawing.Size(103, 22);
             this.openItem.Text = "&Open";
             // 
             // newItem
             // 
             this.newItem.Name = "newItem";
-            this.newItem.Size = new System.Drawing.Size(152, 22);
+            this.newItem.Size = new System.Drawing.Size(103, 22);
             this.newItem.Text = "&New";
             this.newItem.Click += new System.EventHandler(this.newItem_Click);
             // 
             // saveItem
             // 
             this.saveItem.Name = "saveItem";
-            this.saveItem.Size = new System.Drawing.Size(152, 22);
+            this.saveItem.Size = new System.Drawing.Size(103, 22);
             this.saveItem.Text = "&Save";
             this.saveItem.Click += new System.EventHandler(this.saveItem_Click);
             // 
@@ -122,49 +165,6 @@
             this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
             this.modeToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.modeToolStripMenuItem.Text = "Mode";
-            // 
-            // termBox
-            // 
-            this.termBox.Location = new System.Drawing.Point(72, 4);
-            this.termBox.Name = "termBox";
-            this.termBox.Size = new System.Drawing.Size(200, 20);
-            this.termBox.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Term:";
-            // 
-            // definitionBox
-            // 
-            this.definitionBox.Location = new System.Drawing.Point(72, 31);
-            this.definitionBox.Multiline = true;
-            this.definitionBox.Name = "definitionBox";
-            this.definitionBox.Size = new System.Drawing.Size(200, 76);
-            this.definitionBox.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 66);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Definition:";
-            // 
-            // addButton
-            // 
-            this.addButton.Location = new System.Drawing.Point(72, 134);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(200, 37);
-            this.addButton.TabIndex = 4;
-            this.addButton.Text = "Add";
-            this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // flashcardItem
             // 
@@ -178,6 +178,7 @@
             this.matchingToolStripMenuItem.Name = "matchingToolStripMenuItem";
             this.matchingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.matchingToolStripMenuItem.Text = "&Matching";
+            this.matchingToolStripMenuItem.Click += new System.EventHandler(this.matchingToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 

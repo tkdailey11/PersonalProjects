@@ -85,6 +85,10 @@
       <Project>{6c1cf171-c0d3-4664-8cf0-6bb71333f90d}</Project>
       <Name>FlashCardWindow</Name>
     </ProjectReference>
+    <ProjectReference Include="MatchingWindow\MatchingWindow.csproj">
+      <Project>{a96c6fba-55e4-4c18-84bd-1b8bbd33a7db}</Project>
+      <Name>MatchingWindow</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
