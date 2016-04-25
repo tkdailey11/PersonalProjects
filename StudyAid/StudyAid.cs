@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace StudyAid
 {
-    public partial class Form1 : Form
+    public partial class StudyAid : Form
     {
 
         private Dictionary<int, string> terms;
         private int cardNumber;
 
-        public Form1()
+        public StudyAid()
         {
             InitializeComponent();
 
@@ -78,7 +78,7 @@ namespace StudyAid
 
         private void matchingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MatchingWindow.Form1 window = new MatchingWindow.Form1();
+            MatchingWindow.MatchingWindow window = new MatchingWindow.MatchingWindow();
             window.initializeBoxes(terms);
             window.Visible = true;
         }

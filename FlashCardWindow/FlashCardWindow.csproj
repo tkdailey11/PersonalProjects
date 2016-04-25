@@ -52,7 +52,7 @@
     <Compile Include="FlashCardWindow.Designer.cs">
       <DependentUpon>FlashCardWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="LaunchFC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FlashCardWindow.resx">
       <DependentUpon>FlashCardWindow.cs</DependentUpon>

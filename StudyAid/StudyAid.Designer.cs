@@ -1,6 +1,6 @@
 ﻿namespace StudyAid
 {
-    partial class Form1
+    partial class StudyAid
     {
         /// <summary>
         /// Required designer variable.

@@ -1,6 +1,6 @@
 ﻿namespace MatchingWindow
 {
-    partial class Form1
+    partial class MatchingWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,7 @@
             this.totalBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CorrectBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.checkButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.DefinitionBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -81,12 +81,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeFontColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeBackColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeFontColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -107,7 +101,7 @@
             this.toolStripContainer1.ContentPanel.Controls.Add(this.totalBox);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.CorrectBox);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.button1);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.checkButton);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.groupBox3);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.groupBox2);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.groupBox1);
@@ -139,7 +133,6 @@
             this.totalBox.ReadOnly = true;
             this.totalBox.Size = new System.Drawing.Size(45, 20);
             this.totalBox.TabIndex = 46;
-            this.totalBox.Text = "20";
             // 
             // label1
             // 
@@ -158,14 +151,15 @@
             this.CorrectBox.Size = new System.Drawing.Size(45, 20);
             this.CorrectBox.TabIndex = 44;
             // 
-            // button1
+            // checkButton
             // 
-            this.button1.Location = new System.Drawing.Point(21, 577);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 50);
-            this.button1.TabIndex = 43;
-            this.button1.Text = "Check";
-            this.button1.UseVisualStyleBackColor = true;
+            this.checkButton.Location = new System.Drawing.Point(21, 577);
+            this.checkButton.Name = "checkButton";
+            this.checkButton.Size = new System.Drawing.Size(116, 50);
+            this.checkButton.TabIndex = 43;
+            this.checkButton.Text = "Check";
+            this.checkButton.UseVisualStyleBackColor = true;
+            this.checkButton.Click += new System.EventHandler(this.checkButton_Click);
             // 
             // groupBox3
             // 
@@ -548,9 +542,7 @@
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.fontToolStripMenuItem,
-            this.colorToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(577, 24);
@@ -568,60 +560,18 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "&Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
-            // fontToolStripMenuItem
-            // 
-            this.fontToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeFontToolStripMenuItem,
-            this.changeFontColorToolStripMenuItem1});
-            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.fontToolStripMenuItem.Text = "Font";
-            // 
-            // changeFontToolStripMenuItem
-            // 
-            this.changeFontToolStripMenuItem.Name = "changeFontToolStripMenuItem";
-            this.changeFontToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.changeFontToolStripMenuItem.Text = "Change Font";
-            this.changeFontToolStripMenuItem.Click += new System.EventHandler(this.changeFontToolStripMenuItem_Click);
-            // 
-            // changeFontColorToolStripMenuItem1
-            // 
-            this.changeFontColorToolStripMenuItem1.Name = "changeFontColorToolStripMenuItem1";
-            this.changeFontColorToolStripMenuItem1.Size = new System.Drawing.Size(174, 22);
-            this.changeFontColorToolStripMenuItem1.Text = "Change Font Color";
-            // 
-            // colorToolStripMenuItem
-            // 
-            this.colorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeBackColorToolStripMenuItem,
-            this.changeFontColorToolStripMenuItem});
-            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.colorToolStripMenuItem.Text = "Color";
-            // 
-            // changeBackColorToolStripMenuItem
-            // 
-            this.changeBackColorToolStripMenuItem.Name = "changeBackColorToolStripMenuItem";
-            this.changeBackColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.changeBackColorToolStripMenuItem.Text = "Change Back Color";
-            // 
-            // changeFontColorToolStripMenuItem
-            // 
-            this.changeFontColorToolStripMenuItem.Name = "changeFontColorToolStripMenuItem";
-            this.changeFontColorToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.changeFontColorToolStripMenuItem.Text = "Change Font Color";
-            // 
-            // Form1
+            // MatchingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 668);
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MatchingWindow";
             this.Text = "Matching";
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.PerformLayout();
@@ -687,12 +637,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeFontToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeFontColorToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeBackColorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeFontColorToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -702,7 +646,7 @@
         private System.Windows.Forms.TextBox totalBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox CorrectBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button checkButton;
         private System.Windows.Forms.TextBox DefinitionBox;
     }
 }

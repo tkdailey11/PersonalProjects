@@ -10,21 +10,28 @@ using System.Windows.Forms;
 
 namespace MatchingWindow
 {
-    public partial class Form1 : Form
+    public partial class MatchingWindow : Form
     {
 
         private TextBox[] Letters;
         private TextBox[] Terms;
         private List<string> termList;
-        private Dictionary<string, string> termDictionary;
+        private Dictionary<string, string> defTermDictionary;
+        private int numTerms;
+        private string[] answers;
+        private Dictionary<string, string> answerDictionary;
+        private string[] TermArray;
 
-        public Form1()
+        public MatchingWindow()
         {
             InitializeComponent();
-            Letters = new TextBox[20];
-            Terms = new TextBox[20];
+            numTerms = 20;
+            Letters = new TextBox[numTerms];
+            Terms = new TextBox[numTerms];
+            TermArray = new string[numTerms];
             termList = new List<string>();
-            termDictionary = new Dictionary<string, string>();
+            defTermDictionary = new Dictionary<string, string>();
+            answerDictionary = new Dictionary<string, string>();
             lettersTextBoxes();
             termsTextBoxes();
         }
@@ -37,9 +44,9 @@ namespace MatchingWindow
         public void initializeBoxes(Dictionary<int, string> d)
         {
             string s = "";
-
-            int numTerms = d.Count;
-
+            
+            numTerms = d.Count;
+            answers = new string[numTerms];
 
             for(int i = 0; i < numTerms; i++)
             {
@@ -57,10 +64,10 @@ namespace MatchingWindow
             for(int j = 0; j < numTerms; j++)
             {
                 string[] termDef = termList[j].Split('\t');
-                termDictionary.Add(termDef[0], termDef[1]);
+                defTermDictionary.Add(termDef[1], termDef[0]);
             }
 
-            string[] TermArray = termDictionary.Keys.ToArray();
+            TermArray = defTermDictionary.Values.ToArray();
 
             ShuffleArray(TermArray);
 
@@ -69,11 +76,22 @@ namespace MatchingWindow
                 Terms[k].Text = TermArray[k];
             }
 
-            for(int n = 0; n < numTerms; n++)
+            string[] keyArray = defTermDictionary.Keys.ToArray();
+            for (int n = 0; n < numTerms; n++)
             {
                 int charNum = 97 + n;
                 string letter = char.ConvertFromUtf32(charNum);
-                this.DefinitionBox.AppendText(letter + '\t' + termDictionary.Values.ToArray()[n] + '\n' + '\n');
+
+                string def = keyArray[n];
+
+                this.DefinitionBox.AppendText(letter + '\t' + def + '\n' + '\n');
+
+                string key = "";
+
+                if(defTermDictionary.TryGetValue(def, out key))
+                {
+                    answerDictionary.Add(letter, key);
+                }
             }
 
         }
@@ -108,6 +126,7 @@ namespace MatchingWindow
 
         private void termsTextBoxes()
         {
+
             Terms[0] = textBox2;
             Terms[1] = textBox4;
             Terms[2] = textBox6;
@@ -153,6 +172,44 @@ namespace MatchingWindow
             Letters[17] = textBox37;
             Letters[18] = textBox39;
             Letters[19] = textBox41;
+        }
+
+        private void checkButton_Click(object sender, EventArgs e)
+        {
+            string[] answersProvided = new string[numTerms];
+            for(int i = 0; i < numTerms; i++)
+            {
+                answersProvided[i] = Letters[i].Text;
+            }
+
+            int correct = 0;
+
+            for(int j = 0; j < numTerms; j++)
+            {
+                if (answerDictionary[answersProvided[j]] == TermArray[j])
+                {
+                    correct++;
+                }
+            }
+
+            if (correct == numTerms)
+            {
+                CorrectBox.Text = correct.ToString();
+                totalBox.Text = numTerms.ToString();
+                MessageBox.Show("Congratulations, you have gotten 100% correct!", "100% Correct", MessageBoxButtons.OK);
+            }
+            else
+            {
+                CorrectBox.Text = correct.ToString();
+                totalBox.Text = numTerms.ToString();
+
+                MessageBox.Show("You got fewer than 100% correct, please try again.", "Incorrect Answer(s)", MessageBoxButtons.OK);
+            }
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.FindForm().Close();
         }
     }
 }

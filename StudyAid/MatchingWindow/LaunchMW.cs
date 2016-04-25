@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FlashCardWindow
+namespace MatchingWindow
 {
-    static class Program
+    static class LaunchMW
     {
         /// <summary>
         /// The main entry point for the application.
@@ -16,7 +16,7 @@ namespace FlashCardWindow
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FlashCardWindow());
+            Application.Run(new MatchingWindow());
         }
     }
 }
