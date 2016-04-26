@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,10 +63,16 @@ namespace StudyAid
             {
                 string s = "";
                 terms.TryGetValue(n, out s);
-                sb.Append(n + '\t' + s);
+                sb.Append(n + '\t' + s + '\n');
             }
 
-            
+            saveFileDialog1.Filter = "Txt Files|*.txt";
+            saveFileDialog1.ShowDialog();
+
+            StreamWriter file = new StreamWriter(saveFileDialog1.FileName);
+
+            file.Write(sb.ToString());
+            file.Close();
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -81,6 +88,33 @@ namespace StudyAid
             MatchingWindow.MatchingWindow window = new MatchingWindow.MatchingWindow();
             window.initializeBoxes(terms);
             window.Visible = true;
+        }
+
+        private void openItem_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Txt Files|*.txt";
+            openFileDialog1.ShowDialog();
+            string filename = openFileDialog1.FileName;
+            string file = "";
+            try
+            {   
+                using (StreamReader sr = new StreamReader(filename))
+                { 
+                    file = sr.ReadToEnd();
+                }
+            }
+            catch (Exception e2)
+            {
+            }
+
+            string[] terms_ = file.Split();
+
+            foreach(string s in terms_)
+            {
+                string[] arr = s.Split('\t');
+                terms.Add(Int32.Parse(arr[0]), arr[1]);
+            }
+
         }
     }
 }

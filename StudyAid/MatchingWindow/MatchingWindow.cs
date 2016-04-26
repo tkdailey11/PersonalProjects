@@ -203,13 +203,19 @@ namespace MatchingWindow
                 CorrectBox.Text = correct.ToString();
                 totalBox.Text = numTerms.ToString();
 
-                MessageBox.Show("You got fewer than 100% correct, please try again.", "Incorrect Answer(s)", MessageBoxButtons.OK);
+                double c = correct;
+                double nT = numTerms;
+
+                double percentCorrect = (c / nT) * 100;
+                string percent = string.Format("{0:F1}", percentCorrect);
+
+                MessageBox.Show(String.Format("You only got {0}% correct, please try again.", percent), "Incorrect Answer(s)", MessageBoxButtons.OK);
             }
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.FindForm().Close();
+            this.Close();
         }
     }
 }

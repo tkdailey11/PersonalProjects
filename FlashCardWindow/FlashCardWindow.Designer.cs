@@ -38,11 +38,11 @@
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.termColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.definitionColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.fontColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.changeFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -58,6 +58,7 @@
             this.CardBox.ReadOnly = true;
             this.CardBox.Size = new System.Drawing.Size(360, 261);
             this.CardBox.TabIndex = 0;
+            this.CardBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // LeftButton
             // 
@@ -125,7 +126,7 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -171,7 +172,7 @@
             // changeFontToolStripMenuItem
             // 
             this.changeFontToolStripMenuItem.Name = "changeFontToolStripMenuItem";
-            this.changeFontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.changeFontToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.changeFontToolStripMenuItem.Text = "Change Font";
             this.changeFontToolStripMenuItem.Click += new System.EventHandler(this.changeFontToolStripMenuItem_Click);
             // 

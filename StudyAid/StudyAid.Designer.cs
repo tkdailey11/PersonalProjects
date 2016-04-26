@@ -140,20 +140,21 @@
             // openItem
             // 
             this.openItem.Name = "openItem";
-            this.openItem.Size = new System.Drawing.Size(103, 22);
+            this.openItem.Size = new System.Drawing.Size(152, 22);
             this.openItem.Text = "&Open";
+            this.openItem.Click += new System.EventHandler(this.openItem_Click);
             // 
             // newItem
             // 
             this.newItem.Name = "newItem";
-            this.newItem.Size = new System.Drawing.Size(103, 22);
+            this.newItem.Size = new System.Drawing.Size(152, 22);
             this.newItem.Text = "&New";
             this.newItem.Click += new System.EventHandler(this.newItem_Click);
             // 
             // saveItem
             // 
             this.saveItem.Name = "saveItem";
-            this.saveItem.Size = new System.Drawing.Size(103, 22);
+            this.saveItem.Size = new System.Drawing.Size(152, 22);
             this.saveItem.Text = "&Save";
             this.saveItem.Click += new System.EventHandler(this.saveItem_Click);
             // 
@@ -169,14 +170,14 @@
             // flashcardItem
             // 
             this.flashcardItem.Name = "flashcardItem";
-            this.flashcardItem.Size = new System.Drawing.Size(152, 22);
+            this.flashcardItem.Size = new System.Drawing.Size(125, 22);
             this.flashcardItem.Text = "&Flashcard";
             this.flashcardItem.Click += new System.EventHandler(this.flashcardItem_Click);
             // 
             // matchingToolStripMenuItem
             // 
             this.matchingToolStripMenuItem.Name = "matchingToolStripMenuItem";
-            this.matchingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.matchingToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.matchingToolStripMenuItem.Text = "&Matching";
             this.matchingToolStripMenuItem.Click += new System.EventHandler(this.matchingToolStripMenuItem_Click);
             // 
@@ -184,14 +185,14 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // Form1
+            // StudyAid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 257);
             this.Controls.Add(this.toolStripContainer1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "StudyAid";
             this.Text = "Study Aid";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);

@@ -178,7 +178,9 @@ namespace FlashCardWindow
         {
             fontDialog1.ShowDialog();
 
-            this.FindForm().Font = fontDialog1.Font;
+            this.CardBox.Font = fontDialog1.Font;
+            this.LeftButton.Font = new Font(fontDialog1.Font.FontFamily, 35);
+            this.RightButton.Font = new Font(fontDialog1.Font.FontFamily, 35);
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
