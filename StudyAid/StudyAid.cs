@@ -50,9 +50,15 @@ namespace StudyAid
 
         private void flashcardItem_Click(object sender, EventArgs e)
         {
-            FlashCardWindow.FlashCardWindow window = new FlashCardWindow.FlashCardWindow();
-            window.initializeWindow(terms);
-            window.Visible = true;
+            if (terms.Count <= 0)
+            {
+                MessageBox.Show("Please enter at least one term/definition pair before continuing", "Empty Term List", MessageBoxButtons.OK);
+            }
+            else {
+                FlashCardWindow.FlashCardWindow window = new FlashCardWindow.FlashCardWindow();
+                window.initializeWindow(terms);
+                window.Visible = true;
+            }
         }
 
         private void saveItem_Click(object sender, EventArgs e)
@@ -85,9 +91,15 @@ namespace StudyAid
 
         private void matchingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MatchingWindow.MatchingWindow window = new MatchingWindow.MatchingWindow();
-            window.initializeBoxes(terms);
-            window.Visible = true;
+            if (terms.Count <= 0)
+            {
+                MessageBox.Show("Please enter at least one term/definition pair before continuing", "Empty Term List", MessageBoxButtons.OK);
+            }
+            else {
+                MatchingWindow.MatchingWindow window = new MatchingWindow.MatchingWindow();
+                window.initializeBoxes(terms);
+                window.Visible = true;
+            }
         }
 
         private void openItem_Click(object sender, EventArgs e)
@@ -102,17 +114,19 @@ namespace StudyAid
                 { 
                     file = sr.ReadToEnd();
                 }
+
+                string[] terms_ = file.Split();
+
+                foreach (string s in terms_)
+                {
+                    string[] arr = s.Split('\t');
+                    terms.Add(Int32.Parse(arr[0]), arr[1]);
+                }
+
             }
             catch (Exception e2)
             {
-            }
-
-            string[] terms_ = file.Split();
-
-            foreach(string s in terms_)
-            {
-                string[] arr = s.Split('\t');
-                terms.Add(Int32.Parse(arr[0]), arr[1]);
+                MessageBox.Show(e2.Message, "File Not Found", MessageBoxButtons.OK);
             }
 
         }

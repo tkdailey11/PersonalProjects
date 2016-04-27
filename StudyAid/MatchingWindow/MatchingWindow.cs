@@ -60,6 +60,11 @@ namespace MatchingWindow
 
             Shuffle();
 
+            if(numTerms > 20)
+            {
+                numTerms = 20;
+            }
+
             //Add all terms for the matching dictionary
             for(int j = 0; j < numTerms; j++)
             {
@@ -179,7 +184,7 @@ namespace MatchingWindow
             string[] answersProvided = new string[numTerms];
             for(int i = 0; i < numTerms; i++)
             {
-                answersProvided[i] = Letters[i].Text;
+                answersProvided[i] = Letters[i].Text.ToLower();
             }
 
             int correct = 0;
