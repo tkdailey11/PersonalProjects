@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Created by Tyler Dailey, Copyright 4/28/2016, StudyAid Version 1.0
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +12,10 @@ using System.Windows.Forms;
 namespace FlashCardWindow
 {
 
+    /// <summary>
+    /// Represents a Flash Card with the ability to cycle between the provided dictionary
+    /// of cards (key is card number, value is term '\t' definition).
+    /// </summary>
     public partial class FlashCardWindow : Form
     {
         private Dictionary<int, string> setTerms;
@@ -20,13 +25,10 @@ namespace FlashCardWindow
         private Color termColor;
         private Color definitionColor;
 
+
         /// <summary>
-        /// Represents a Flash Card with the ability to cycle between the provided dictionary
-        /// of cards (key is card number, value is term '\t' definition). If a term is displayed,
-        /// the backColor is Color.AliceBlue, if a definition is displayed the backColor is 
-        /// Color.lightGoldenrodYellow
+        /// Initialize the FlashCardWindow.
         /// </summary>
-        /// <param name="d"></param>
         public FlashCardWindow()
         {
             InitializeComponent();
@@ -35,6 +37,11 @@ namespace FlashCardWindow
             this.definitionColor = Color.Goldenrod;
         }
 
+        /// <summary>
+        /// Initialize the FlashCardWindow with the given dictionary(the key is an int cardNumber, and
+        /// the string value is a term and definition separated by a '\t' character.
+        /// </summary>
+        /// <param name="d"></param>
         public void initializeWindow(Dictionary<int, string> d)
         {
             this.setTerms = d;
@@ -66,6 +73,11 @@ namespace FlashCardWindow
             }
         }
 
+        /// <summary>
+        /// Called when the right arrow button on the form is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RightButton_Click(object sender, EventArgs e)
         {
             //Currently on the definition of a card, go to the next term
@@ -95,6 +107,11 @@ namespace FlashCardWindow
             }
         }
 
+        /// <summary>
+        /// Called when the left button on the form is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LeftButton_Click(object sender, EventArgs e)
         {
             //If nextDisplay is empty that means we are on the 
@@ -147,6 +164,11 @@ namespace FlashCardWindow
             }
         }
 
+        /// <summary>
+        /// Change the back color for the window when a term is being displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void termColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
@@ -157,6 +179,11 @@ namespace FlashCardWindow
             }
         }
 
+        /// <summary>
+        /// Change the color for the window when a definition is being displayed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void definitionColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
@@ -168,12 +195,23 @@ namespace FlashCardWindow
             }
         }
 
+        /// <summary>
+        /// Change the color of the font.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fontColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
             this.CardBox.ForeColor = colorDialog1.Color;
         }
 
+        /// <summary>
+        /// Changes the font in the card display window, as well as the left and right arrows, 
+        /// the arrows will not change size however.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void changeFontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fontDialog1.ShowDialog();
@@ -183,6 +221,11 @@ namespace FlashCardWindow
             this.RightButton.Font = new Font(fontDialog1.Font.FontFamily, 35);
         }
 
+        /// <summary>
+        /// Close the window when the CLose option is selected from the file menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.FindForm().Close();

@@ -1,4 +1,5 @@
-﻿namespace StudyAid
+﻿//Created by Tyler Dailey, Copyright 4/28/2016, StudyAid Version 1.0
+namespace StudyAid
 {
     partial class StudyAid
     {

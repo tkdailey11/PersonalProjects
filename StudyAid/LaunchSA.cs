@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Created by Tyler Dailey, Copyright 4/28/2016, StudyAid Version 1.0
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

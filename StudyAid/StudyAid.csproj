@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModels.cs" />
     <Compile Include="StudyAid.cs">
       <SubType>Form</SubType>
     </Compile>
