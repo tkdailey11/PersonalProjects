@@ -123,30 +123,32 @@ namespace StudyAid
 
         private void openItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Txt Files|*.txt";
-            openFileDialog1.ShowDialog();
-            string filename = openFileDialog1.FileName;
-            string file = "";
-            try
-            {   
-                using (StreamReader sr = new StreamReader(filename))
-                { 
-                    file = sr.ReadToEnd();
-                }
+            //openFileDialog1.Filter = "Txt Files|*.txt";
+            //openFileDialog1.ShowDialog();
+            //string filename = openFileDialog1.FileName;
+            //string file = "";
+            //try
+            //{   
+            //    using (StreamReader sr = new StreamReader(filename))
+            //    { 
+            //        file = sr.ReadToEnd();
+            //    }
 
-                string[] terms_ = file.Split();
+            //    string[] terms_ = file.Split();
 
-                foreach (string s in terms_)
-                {
-                    string[] arr = s.Split('\t');
-                    terms.Add(Int32.Parse(arr[0]), arr[1]);
-                }
+            //    foreach (string s in terms_)
+            //    {
+            //        string[] arr = s.Split('\t');
+            //        terms.Add(Int32.Parse(arr[0]), arr[1]);
+            //    }
 
-            }
-            catch (Exception e2)
-            {
-                MessageBox.Show(e2.Message, "File Not Found", MessageBoxButtons.OK);
-            }
+            //}
+            //catch (Exception e2)
+            //{
+            //    MessageBox.Show(e2.Message, "File Not Found", MessageBoxButtons.OK);
+            //}
+
+            openSession();
 
         }
 
@@ -159,18 +161,22 @@ namespace StudyAid
 
                 using(SqlTransaction trans = conn.BeginTransaction())
                 {
-                    using(SqlCommand command = new SqlCommand("INSERT INTO EntriesTable(SessionName,Term, Definition) VALUES ('@SessionID','@Term','@Definition')", conn, trans))
+                    using(SqlCommand command = new SqlCommand("INSERT INTO EntriesTable(SessionName,Term, Definition) VALUES (@SessionName,@Term,@Definition)", conn, trans))
                     {
+                        
                         int n = 0;
                         foreach (string s in terms.Values)
                         {
+                            command.Parameters.AddWithValue("@SessionName", this.sessionID);
                             string[] arr = s.Split('\t');
-
-                            command.Parameters.AddWithValue("@SessionID", this.sessionID);
                             command.Parameters.AddWithValue("@Term", arr[0]);
                             command.Parameters.AddWithValue("@Definition", arr[1]);
 
-                            n = command.ExecuteNonQuery();
+                        
+
+                            n += command.ExecuteNonQuery();
+
+                            command.Parameters.Clear();
 
                         }
 
@@ -178,6 +184,8 @@ namespace StudyAid
                         {
                             trans.Commit();
                             hasBeenSaved = true;
+
+                            MessageBox.Show("Save Successful", "Save", MessageBoxButtons.OK);
                         }
                     }
                 }
@@ -186,7 +194,7 @@ namespace StudyAid
 
         private void openSession()
         {
-            bool wantsToContinue = false;
+            bool wantsToContinue = true;
             if (!hasBeenSaved)
             {
                 DialogResult saveWarning = MessageBox.Show("There is unsaved data, if you continue, this data will be lost. Do you still want to continue?", "Unsaved Data", MessageBoxButtons.YesNo);
@@ -214,8 +222,10 @@ namespace StudyAid
                             {
                                 while (reader.Read())
                                 {
-                                    string s = reader.GetValue(1).ToString();
 
+
+
+                                    string s = (string)reader["SessionName"];
                                     if (!sessions.Contains(s))
                                     {
                                         sessions.Add(s);
@@ -224,31 +234,40 @@ namespace StudyAid
                             }
                         }
 
-                        //Add a form here to get the desired session name from the user
-                        string selected = OpenDialog.ShowDialog(sessions);
-
-
-                        //Add an SqlCommand here to get all terms and definitions from the database
-                        using (SqlCommand command = new SqlCommand("select * from EntriesTable where SessionName = '@SessionName'", conn, trans))
+                        if (sessions.Count == 0)
                         {
-                            terms.Clear();
+                            MessageBox.Show("There are no saved sessions to display.", "", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
 
-                            command.Parameters.AddWithValue("@SessionName", selected);
 
-                            using (SqlDataReader reader = command.ExecuteReader())
+                            //Add a form here to get the desired session name from the user
+                            string selected = OpenDialog.ShowDialog(sessions);
+
+
+                            //Add an SqlCommand here to get all terms and definitions from the database
+                            using (SqlCommand command = new SqlCommand("select * from EntriesTable where SessionName = @SessionName", conn, trans))
                             {
-                                int n = 0;
-                                while (reader.Read())
+                                terms.Clear();
+
+                                command.Parameters.AddWithValue("@SessionName", selected);
+
+                                using (SqlDataReader reader = command.ExecuteReader())
                                 {
-                                    string term = reader[2].ToString();
-                                    term += ('\t' + reader[3].ToString());
-                                    terms.Add(n, term);
-                                    n++;
+                                    int n = 0;
+                                    while (reader.Read())
+                                    {
+                                        string term = reader[2].ToString();
+                                        term += ('\t' + reader[3].ToString());
+                                        terms.Add(n, term);
+                                        n++;
+                                    }
                                 }
                             }
                         }
 
-                        trans.Commit();
+                        trans.Commit();                        
                     }
                 }
             }
@@ -280,15 +299,15 @@ namespace StudyAid
         {
             public static string ShowDialog(List<string> items)
             {
-                Form dialog = new Form() { Width = 500, Height = 800, Text = "Choose Session to Open"};
-                ListBox listOfItems = new ListBox() { Top = 50, Left = 50, Width = 400, Height = 600 };
+                Form dialog = new Form() { Width = 500, Height = 600, Text = "Choose Session to Open"};
+                ListBox listOfItems = new ListBox() { Top = 50, Left = 50, Width = 400, Height = 400 };
 
                 foreach(string s in items)
                 {
                     listOfItems.Items.Add(s);
                 }
 
-                Button confirmation = new Button() { Text = "OK", Left = 175, Top = 700, Height = 50, Width = 150};
+                Button confirmation = new Button() { Text = "OK", Left = 175, Top = 500, Height = 50, Width = 150};
                 confirmation.Click += (sender, e) => { dialog.Close(); };
                 dialog.Controls.Add(confirmation);
                 dialog.Controls.Add(listOfItems);

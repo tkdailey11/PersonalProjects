@@ -71,6 +71,11 @@
     </Compile>
     <Compile Include="LaunchSA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StudyDatabaseDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudyDatabaseDataSet.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="StudyAid.resx">
       <DependentUpon>StudyAid.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +97,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="StudyDatabaseDataSet.xsc">
+      <DependentUpon>StudyDatabaseDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StudyDatabaseDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StudyDatabaseDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="StudyDatabaseDataSet.xss">
+      <DependentUpon>StudyDatabaseDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -108,10 +124,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\StudyDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\StudyDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>StudyDatabase.mdf</DependentUpon>
     </Content>
   </ItemGroup>
