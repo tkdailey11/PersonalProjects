@@ -16,6 +16,7 @@ namespace StudyAid
 
         private Dictionary<int, string> terms;
         private int cardNumber;
+        private string sessionID;
 
         public StudyAid()
         {
@@ -23,6 +24,15 @@ namespace StudyAid
 
             terms = new Dictionary<int, string>();
             cardNumber = 0;
+
+            while(sessionID == null || sessionID == "")
+            {
+                sessionID = Prompt.ShowDialog();
+                if(sessionID == null || sessionID == "")
+                {
+                    MessageBox.Show("Please enter a session name between 1-50 characters", "Empty Session ID", MessageBoxButtons.OK);
+                }
+            }
 
         }
 
@@ -130,5 +140,39 @@ namespace StudyAid
             }
 
         }
+
+
+        private void saveSession()
+        {
+
+        }
+
+        private void openSession()
+        {
+
+        }
+
+
+
+        public static class Prompt
+        {
+            public static string ShowDialog()
+            {
+                Form prompt = new Form();
+                prompt.Width = 500;
+                prompt.Height = 200;
+                prompt.Text = "Session ID";
+                Label textLabel = new Label() { Width = 400, Left = 50, Top = 20, Text = "Please enter a session name (50 characters or less):" };                
+                TextBox inputBox = new TextBox() { Left = 50, Top = 50, Width = 400 };
+                Button confirmation = new Button() { Text = "OK", Left = 100, Width = 300, Top = 100 , Height = 50};
+                confirmation.Click += (sender, e) => { prompt.Close(); };
+                prompt.Controls.Add(confirmation);
+                prompt.Controls.Add(textLabel);
+                prompt.Controls.Add(inputBox);
+                prompt.ShowDialog();
+                return inputBox.Text;
+            }
+        }
+
     }
 }

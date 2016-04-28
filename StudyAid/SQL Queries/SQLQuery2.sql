@@ -1,0 +1,1 @@
+﻿select * from EntriesTable where SessionName like 'Test1'

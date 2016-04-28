@@ -140,21 +140,21 @@
             // openItem
             // 
             this.openItem.Name = "openItem";
-            this.openItem.Size = new System.Drawing.Size(152, 22);
+            this.openItem.Size = new System.Drawing.Size(103, 22);
             this.openItem.Text = "&Open";
             this.openItem.Click += new System.EventHandler(this.openItem_Click);
             // 
             // newItem
             // 
             this.newItem.Name = "newItem";
-            this.newItem.Size = new System.Drawing.Size(152, 22);
+            this.newItem.Size = new System.Drawing.Size(103, 22);
             this.newItem.Text = "&New";
             this.newItem.Click += new System.EventHandler(this.newItem_Click);
             // 
             // saveItem
             // 
             this.saveItem.Name = "saveItem";
-            this.saveItem.Size = new System.Drawing.Size(152, 22);
+            this.saveItem.Size = new System.Drawing.Size(103, 22);
             this.saveItem.Text = "&Save";
             this.saveItem.Click += new System.EventHandler(this.saveItem_Click);
             // 
@@ -187,6 +187,7 @@
             // 
             // StudyAid
             // 
+            this.AcceptButton = this.addButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 257);

@@ -1,0 +1,1 @@
+﻿INSERT INTO EntriesTable(SessionName,Term, Definition) VALUES ('Test2','Troy','Is weird');
