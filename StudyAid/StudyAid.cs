@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace StudyAid
 {
@@ -17,6 +15,8 @@ namespace StudyAid
         private Dictionary<int, string> terms;
         private int cardNumber;
         private string sessionID;
+        private bool hasBeenSaved;
+        private string StudyAidConnectionString;
 
         public StudyAid()
         {
@@ -24,6 +24,7 @@ namespace StudyAid
 
             terms = new Dictionary<int, string>();
             cardNumber = 0;
+            hasBeenSaved = true;
 
             while(sessionID == null || sessionID == "")
             {
@@ -34,6 +35,8 @@ namespace StudyAid
                 }
             }
 
+            StudyAidConnectionString = ConfigurationManager.ConnectionStrings["StudyAidConnectionString"].ConnectionString;
+            Console.Read();
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -50,6 +53,8 @@ namespace StudyAid
                 this.termBox.Text = "";
                 this.definitionBox.Text = "";
             }
+
+            hasBeenSaved = false;
         }
 
         private void newItem_Click(object sender, EventArgs e)
@@ -73,22 +78,26 @@ namespace StudyAid
 
         private void saveItem_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
+            //StringBuilder sb = new StringBuilder();
 
-            foreach(int n in terms.Keys)
-            {
-                string s = "";
-                terms.TryGetValue(n, out s);
-                sb.Append(n + '\t' + s + '\n');
-            }
+            //foreach(int n in terms.Keys)
+            //{
+            //    string s = "";
+            //    terms.TryGetValue(n, out s);
+            //    sb.Append(n + '\t' + s + '\n');
+            //}
 
-            saveFileDialog1.Filter = "Txt Files|*.txt";
-            saveFileDialog1.ShowDialog();
+            //saveFileDialog1.Filter = "Txt Files|*.txt";
+            //saveFileDialog1.ShowDialog();
 
-            StreamWriter file = new StreamWriter(saveFileDialog1.FileName);
+            //StreamWriter file = new StreamWriter(saveFileDialog1.FileName);
 
-            file.Write(sb.ToString());
-            file.Close();
+            //file.Write(sb.ToString());
+            //file.Close();
+
+            //hasBeenSaved = true;
+
+            saveSession();
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -144,12 +153,105 @@ namespace StudyAid
 
         private void saveSession()
         {
+            using(SqlConnection conn = new SqlConnection(StudyAidConnectionString))
+            {
+                conn.Open();
 
+                using(SqlTransaction trans = conn.BeginTransaction())
+                {
+                    using(SqlCommand command = new SqlCommand("INSERT INTO EntriesTable(SessionName,Term, Definition) VALUES ('@SessionID','@Term','@Definition')", conn, trans))
+                    {
+                        int n = 0;
+                        foreach (string s in terms.Values)
+                        {
+                            string[] arr = s.Split('\t');
+
+                            command.Parameters.AddWithValue("@SessionID", this.sessionID);
+                            command.Parameters.AddWithValue("@Term", arr[0]);
+                            command.Parameters.AddWithValue("@Definition", arr[1]);
+
+                            n = command.ExecuteNonQuery();
+
+                        }
+
+                        if(n == terms.Values.Count)
+                        {
+                            trans.Commit();
+                            hasBeenSaved = true;
+                        }
+                    }
+                }
+            }
         }
 
         private void openSession()
         {
+            bool wantsToContinue = false;
+            if (!hasBeenSaved)
+            {
+                DialogResult saveWarning = MessageBox.Show("There is unsaved data, if you continue, this data will be lost. Do you still want to continue?", "Unsaved Data", MessageBoxButtons.YesNo);
 
+                if(saveWarning == DialogResult.Yes)
+                {
+                    wantsToContinue = true;
+                }
+            }
+
+
+            if (wantsToContinue)
+            {
+                List<string> sessions = new List<string>();
+                using (SqlConnection conn = new SqlConnection(StudyAidConnectionString))
+                {
+                    conn.Open();
+
+                    using (SqlTransaction trans = conn.BeginTransaction())
+                    {
+                        //Get list of all Session Names
+                        using (SqlCommand command = new SqlCommand("select * from EntriesTable", conn, trans))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    string s = reader.GetValue(1).ToString();
+
+                                    if (!sessions.Contains(s))
+                                    {
+                                        sessions.Add(s);
+                                    }
+                                }
+                            }
+                        }
+
+                        //Add a form here to get the desired session name from the user
+                        string selected = OpenDialog.ShowDialog(sessions);
+
+
+                        //Add an SqlCommand here to get all terms and definitions from the database
+                        using (SqlCommand command = new SqlCommand("select * from EntriesTable where SessionName = '@SessionName'", conn, trans))
+                        {
+                            terms.Clear();
+
+                            command.Parameters.AddWithValue("@SessionName", selected);
+
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                int n = 0;
+                                while (reader.Read())
+                                {
+                                    string term = reader[2].ToString();
+                                    term += ('\t' + reader[3].ToString());
+                                    terms.Add(n, term);
+                                    n++;
+                                }
+                            }
+                        }
+
+                        trans.Commit();
+                    }
+                }
+            }
         }
 
 
@@ -173,6 +275,29 @@ namespace StudyAid
                 return inputBox.Text;
             }
         }
+
+        public static class OpenDialog
+        {
+            public static string ShowDialog(List<string> items)
+            {
+                Form dialog = new Form() { Width = 500, Height = 800, Text = "Choose Session to Open"};
+                ListBox listOfItems = new ListBox() { Top = 50, Left = 50, Width = 400, Height = 600 };
+
+                foreach(string s in items)
+                {
+                    listOfItems.Items.Add(s);
+                }
+
+                Button confirmation = new Button() { Text = "OK", Left = 175, Top = 700, Height = 50, Width = 150};
+                confirmation.Click += (sender, e) => { dialog.Close(); };
+                dialog.Controls.Add(confirmation);
+                dialog.Controls.Add(listOfItems);
+                dialog.ShowDialog();
+
+                return listOfItems.SelectedItem.ToString();
+            }
+        }
+
 
     }
 }
